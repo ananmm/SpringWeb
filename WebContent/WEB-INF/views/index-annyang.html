@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Speech to text converter</title>
+		<link rel="stylesheet" type="text/css" 
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+		<style type="text/css">
+			body {
+				font-family: verdana;
+			}		
+			#result {
+				height: 200px;
+				border: 1px solid #ccc;
+				padding: 10px;
+				box-shadow: 0 0 10px 0 #bbb;
+				margin-bottom: 30px;
+				font-size: 14px;
+				line-height: 25px;
+			}
+			button {
+				font-size: 20px;
+				position: absolute;
+				top: 240px;
+				left: 50%;
+			}
+		</style>
+		<script type="text/javascript">
+			function startSpeechRecognition() {
+				if(annyang) {
+					var commands = {'hello :name': helloFunction};
+					var helloFunction = function(name) {
+						console.log("coming to the hello function-----"+name)
+					}
+					annyang.addCommands(commands);
+					// Start listening, don't restart automatically, stop recognition after first phrase recognized
+					annyang.start({ autoRestart: false, continuous: false });
+					annyang.debug([newState=true]);
+					annyang.addCallback('error', function() {
+					  console.log("there was an error")
+					});
+					annyang.addCallback('resultMatch', function(userSaid, matchCommandText, phrases) {
+					  console.log("userSaid------"+userSaid); // sample output: 'hello'
+					  console.log("command Text----"+matchCommandText); // sample output: 'hello (there)'
+					  console.log("phrases-------"+phrases); // sample output: ['hello', 'halo', 'yellow', 'polo', 'hello kitty']
+					});
+					annyang.addCallback('end', function() {
+						console.log("end of the speech")
+					});
+					annyang.addCallback('result', function(whatWasHeardArray) {
+					  console.log(whatWasHeardArray)
+					});
+					function matchCommandText() {
+						console.log("calling the match command text")
+					}
+					
+					function endCommandText() {
+						console.log("calling the end command text")
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h4 align="center">Spech to Text</h4>
+		<div id="result"></div>
+		<button onclick="startSpeechRecognition()"><i class="fa fa-microphone"></i></button>		
+	</body>
+</html>

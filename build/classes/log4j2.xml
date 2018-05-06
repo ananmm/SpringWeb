@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+		<RollingFile name="springWebAppDebugAppender" 
+			fileName="/home/anand/Documents/SpringWebLogs/SpringWebAppDebug.log"
+			filePattern="/home/anand/Documents/SpringWebLogs/SpringWebAppDebug-%d{yyyy-MM-dd}-%i.log">
+			<Filters>
+				<ThresholdFilter level="DEBUG" onMatch="NEUTRAL" onMismatch="DENY"/>
+			</Filters>
+			<!--	
+			<PatternLayout>
+				<Pattern>%d %p %X %n</Pattern>
+			</PatternLayout>
+			-->
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB"/>
+				<TimeBasedTriggeringPolicy interval="1" modulate="false"/>
+			</Policies>
+		</RollingFile>
+		<RollingFile name="springWebAppInfoAppender" 
+			fileName="/home/anand/Documents/SpringWebLogs/SpringWebAppInfo.log"
+			filePattern="/home/anand/Documents/SpringWebLogs/SpringWebAppInfo-%d{yyyy-MM-dd}-%i.log">
+			<Filters>
+				<ThresholdFilter level="DEBUG" onMatch="NEUTRAL" onMismatch="DENY"/>
+			</Filters>
+			<!--	
+			<PatternLayout>
+				<Pattern>%d %p %X %n</Pattern>
+			</PatternLayout>
+			-->
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB"/>
+				<TimeBasedTriggeringPolicy interval="1" modulate="false"/>
+			</Policies>
+		</RollingFile>
+		<RollingFile name="springWebAppErrorAppender" 
+			fileName="/home/anand/Documents/SpringWebLogs/SpringWebAppError.log"
+			filePattern="/home/anand/Documents/SpringWebLogs/SpringWebAppError-%d{yyyy-MM-dd}-%i.log">
+			<Filters>
+				<ThresholdFilter level="DEBUG" onMatch="NEUTRAL" onMismatch="DENY"/>
+			</Filters>
+			<!--	
+			<PatternLayout>
+				<Pattern>%d %p %X %n</Pattern>
+			</PatternLayout>
+			-->
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="250 MB"/>
+				<TimeBasedTriggeringPolicy interval="1" modulate="false"/>
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<logger name="freemarker.cache" level="OFF"/>
+		<Root level="DEBUG">
+			<AppenderRef ref="springWebAppDebugAppender"/>
+			<AppenderRef ref="springWebAppInfoAppender"/>
+			<AppenderRef ref="springWebAppErrorAppender"/>
+		</Root>
+	</Loggers>
+</Configuration>
